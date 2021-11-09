@@ -8,16 +8,14 @@ const EditPost = ({ ID, refreshPage }) => {
 
   let URL = `https://bloggy-api.herokuapp.com/posts/${ID}`;
 
-  const [SPageTitle, setSPageTitle] = useState("");
-  const [SPageBody, setSPageBody] = useState("");
   const [TitleInput, setTitleInput] = useState("");
   const [BodyInput, setBodyInput] = useState("");
 
   const fetchData = async () => {
     try {
       const response = await axios.get(URL);
-      setSPageTitle(response.data.title);
-      setSPageBody(response.data.body);
+      setBodyInput(response.data.body);
+      setTitleInput(response.data.title);
     } catch (error) {
       console.info(error.config);
     }
@@ -38,7 +36,6 @@ const EditPost = ({ ID, refreshPage }) => {
         <label>Update Title </label>
         <input
           onChange={(e) => setTitleInput(e.target.value)}
-          placeholder={SPageTitle}
           value={TitleInput}
         />
 
@@ -46,7 +43,6 @@ const EditPost = ({ ID, refreshPage }) => {
         <textarea
           style={styles.textareaStyle}
           onChange={(e) => setBodyInput(e.target.value)}
-          placeholder={SPageBody}
           value={BodyInput}
         />
         <button
